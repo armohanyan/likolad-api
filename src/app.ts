@@ -3,9 +3,10 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import config from './config/variables.config';
+import config from './config';
 import ErrorHandlerMiddleware from './middlewares/error-handler.middleware';
 import Api from './api';
+import Database from './database';
 
 interface CorsOptions {
   origin?: string;
@@ -30,11 +31,12 @@ class App {
     this._setCors();
     this._setRequestParser();
     this._initializeApi();
+    this._initializeDatabase()
     this._setErrorHandler();
   }
 
   private _setRequestLogger(): void {
-    if (config.DISABLE_REQUEST_LOG !== '1') {
+    if (!config.DISABLE_REQUEST_LOG) {
       this.app.use(morgan('dev'));
     }
   }
@@ -55,6 +57,10 @@ class App {
     this.app.use(bodyParser.json({ limit: '1mb' }));
     const extendedOptions: bodyParser.OptionsUrlencoded = { limit: '500mb', extended: false };
     this.app.use(bodyParser.urlencoded(extendedOptions));
+  }
+
+  private _initializeDatabase() {
+    new Database().initialize()
   }
 
   private _initializeApi(): void {

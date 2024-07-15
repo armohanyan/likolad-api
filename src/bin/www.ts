@@ -2,12 +2,12 @@ import http from 'http';
 import 'dotenv/config';
 import { LoggerUtil } from '../utils';
 import App from '../app';
-import config from '../config/variables.config';
+import config from '../config';
 
 const { PORT } = config;
 
-const init = () => {
-  const server = http.createServer();
+const init = async () => {
+  const server = http.createServer(App.app);
   
   App.init();
 
@@ -31,4 +31,4 @@ const init = () => {
   server.on('listening', _onListening);
 };
 
-init()
+export default init().catch(LoggerUtil.error);

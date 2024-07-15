@@ -16,7 +16,6 @@ export default class SuccessHandlerUtil {
    * @param data The data to include in the response body.
    */
   private static _sendResponse(response: Response, status: number, data?: unknown): void {
-    // @ts-ignore
     response.status(status).json(data);
   }
 

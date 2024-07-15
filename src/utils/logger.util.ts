@@ -1,5 +1,5 @@
 import winston from 'winston';
-import config from '../config/variables.config';
+import config from '../config';
 
 const { LOG_LEVEL } = config;
 
