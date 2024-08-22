@@ -1,10 +1,10 @@
+import { sequelize } from "../../models";
 import {LoggerUtil} from "../utils";
-import db from '../../models'
 
 export default class Database {
     private async authenticate(): Promise<void> {
         try {
-            await db.sequelize.authenticate()
+            await sequelize.authenticate()
 
             LoggerUtil.info(`Connection has been established successfully`);
         } catch (error) {

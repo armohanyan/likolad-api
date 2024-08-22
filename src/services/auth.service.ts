@@ -1,8 +1,8 @@
-import User from "../../models/user";
 import bcrypt from 'bcryptjs';
 import { CryptoUtil } from "utils";
 import JwtUtil from "utils/jwt.util";
 import createHttpError from 'http-errors';
+import { User } from '../../models';
 
 interface ISignUpParams {
     firstName: string
@@ -32,19 +32,19 @@ export default class AuthService {
     
         const hashedPassword = CryptoUtil.createHash(body.password)
     
-        const response = await User.create({
-          firstName: body.firstName,
-          lastName: body.lastName,
-          email: body.email,
-          password: hashedPassword,
-          birthday: body.birthday,
-          location: body.location,
-          isVerified: false,
-          phone: body.phone,
-          role: "admin"
-        });
+        // const response = await User.create({
+        //   firstName: body.firstName,
+        //   lastName: body.lastName,
+        //   email: body.email,
+        //   password: hashedPassword,
+        //   birthday: body.birthday,
+        //   location: body.location,
+        //   isVerified: false,
+        //   phone: body.phone,
+        //   role: "admin"
+        // });
 
-        return response
+        return {}
     }
 
     static async signIn(body: ISignInParams) {

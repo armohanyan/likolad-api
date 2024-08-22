@@ -1,36 +1,34 @@
-'use strict';
+import { Sequelize } from 'sequelize';
+import UserFactory from './user';
+import ProductFactory from './product';
+import CategoryFactory from './category';
+import ProductCategoryFactory from './productCategory';
+import TestimonialFactory from './testimonial';
+import ContactFactory from './contact';
 
-import fs from 'fs';
-import path from 'path';
-import { Sequelize, DataTypes } from 'sequelize';
-import config from '../src/config';
-import User from './user'; // Import the User model
-
-interface IDB {
-    [key: string]: any;
-    sequelize: Sequelize;
-    Sequelize: typeof Sequelize;
-}
-
-const dbConfigs = config.MYSQL;
-const db: IDB = { sequelize: {} as Sequelize, Sequelize: Sequelize };
-
-let sequelize: Sequelize = new Sequelize(dbConfigs.DATABASE, dbConfigs.USER, dbConfigs.PASSWORD, {
-    host: dbConfigs.HOST,
-    dialect: "mysql"
+// Initialize Sequelize
+const sequelize = new Sequelize({
+  "username": "root",
+  "password": "HyHJWmhIA0wWN8Y",
+  "database": "likolad",
+  "host": "127.0.0.1",
+  "dialect": "mysql"
 });
 
-User.initialize(sequelize);
+// Initialize models
+const User = UserFactory(sequelize);
+const Product = ProductFactory(sequelize);
+const Category = CategoryFactory(sequelize);
+const ProductCategory = ProductCategoryFactory(sequelize);
+const Testimonial = TestimonialFactory(sequelize);
+const Contact = ContactFactory(sequelize);
 
-db.User = User;
+// Define associations
+User.hasMany(Product, { foreignKey: 'userId' });
+Product.belongsTo(User, { foreignKey: 'userId' });
 
-Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
-});
+Product.belongsToMany(Category, { through: ProductCategory });
+Category.belongsToMany(Product, { through: ProductCategory });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-export default db;
+// Export models and Sequelize instance
+export { sequelize, User, Product, Category, ProductCategory, Testimonial, Contact };
