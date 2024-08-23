@@ -1,17 +1,10 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import {IProductCategory} from "../src/types/product-category";
 
-interface ProductCategoryAttributes {
-    productId: number;
-    categoryId: number;
-    // Additional attributes can be added here, e.g., timestamps
-    createdAt?: Date;
-    updatedAt?: Date;
-}
-
-type ProductCategoryCreationAttributes = Optional<ProductCategoryAttributes, 'createdAt' | 'updatedAt'>;
+type ProductCategoryCreationAttributes = Optional<IProductCategory, 'createdAt' | 'updatedAt'>;
 
 export default (sequelize: Sequelize) => {
-    class ProductCategory extends Model<ProductCategoryAttributes, ProductCategoryCreationAttributes> implements ProductCategoryAttributes {
+    class ProductCategory extends Model<IProductCategory, ProductCategoryCreationAttributes> implements IProductCategory {
         public productId!: number;
         public categoryId!: number;
         public createdAt?: Date;
@@ -48,7 +41,7 @@ export default (sequelize: Sequelize) => {
     }, {
         sequelize,
         tableName: 'ProductCategories',
-        timestamps: true, // This ensures `createdAt` and `updatedAt` are managed
+        timestamps: true,
     });
 
     return ProductCategory;

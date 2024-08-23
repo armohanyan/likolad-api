@@ -9,10 +9,10 @@ import ContactFactory from './contact';
 // Initialize Sequelize
 const sequelize = new Sequelize({
   "username": "root",
-  "password": "HyHJWmhIA0wWN8Y",
-  "database": "likolad",
-  "host": "127.0.0.1",
-  "dialect": "mysql"
+    "password": "HyHJWmhIA0wWN8Y",
+    "database": "likolad",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
 });
 
 // Initialize models

@@ -1,15 +1,11 @@
   import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+  import {ITestimonial} from "../src/types/testimonial";
 
-interface TestimonialAttributes {
-  id: number;
-  content: string;
-  author: string;
-}
 
-type TestimonialCreationAttributes = Optional<TestimonialAttributes, 'id'>;
+type TestimonialCreationAttributes = Optional<ITestimonial, 'id'>;
 
 export default (sequelize: Sequelize) => {
-  class Testimonial extends Model<TestimonialAttributes, TestimonialCreationAttributes> implements TestimonialAttributes {
+  class Testimonial extends Model<ITestimonial, TestimonialCreationAttributes> implements ITestimonial {
     public id!: number;
     public content!: string;
     public author!: string;

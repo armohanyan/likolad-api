@@ -1,19 +1,10 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import {IContact} from "../src/types/contact";
 
-interface ContactAttributes {
-  id: number;
-  phone: string;
-  location: string;
-  gmail: string;
-  instagram: string;
-  facebook: string;
-  linkedin: string;
-}
-
-type ContactCreationAttributes = Optional<ContactAttributes, 'id'>;
+type ContactCreationAttributes = Optional<IContact, 'id'>;
 
 export default (sequelize: Sequelize) => {
-  class Contact extends Model<ContactAttributes, ContactCreationAttributes> implements ContactAttributes {
+  class Contact extends Model<IContact, ContactCreationAttributes> implements IContact {
     public id!: number;
     public phone!: string;
     public location!: string;

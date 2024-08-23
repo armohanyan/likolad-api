@@ -1,16 +1,10 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import {ICategory} from "../src/types/category";
 
-interface CategoryAttributes {
-  id: number;
-  title: string;
-  description: string;
-  parentId?: number; // Optional for nested categories
-}
-
-type CategoryCreationAttributes = Optional<CategoryAttributes, 'id'>;
+type CategoryCreationAttributes = Optional<ICategory, 'id'>;
 
 export default (sequelize: Sequelize) => {
-  class Category extends Model<CategoryAttributes, CategoryCreationAttributes> implements CategoryAttributes {
+  class Category extends Model<ICategory, CategoryCreationAttributes> implements ICategory {
     public id!: number;
     public title!: string;
     public description!: string;

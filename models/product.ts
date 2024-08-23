@@ -1,19 +1,10 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import {IProduct} from "../src/types/product";
 
-interface ProductAttributes {
-  id: number;
-  title: string;
-  description: string;
-  images: string;
-  video: string;
-  price: number;
-  favorite: boolean;
-}
-
-type ProductCreationAttributes = Optional<ProductAttributes, 'id'>;
+type ProductCreationAttributes = Optional<IProduct, 'id'>;
 
 export default (sequelize: Sequelize) => {
-  class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
+  class Product extends Model<IProduct, ProductCreationAttributes> implements IProduct {
     public id!: number;
     public title!: string;
     public description!: string;

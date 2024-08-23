@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "HyHJWmhIA0wWN8Y",
+      "password": "HyHJWmhIA0wWN8Y",
     "database": "likolad",
     "host": "127.0.0.1",
     "dialect": "mysql"

@@ -1,14 +1,15 @@
 export interface IUser {
-    id?: number;
+    id: number;
     firstName: string;
     lastName: string;
     role: 'admin' | 'user';
     email: string;
-    password: string;
+    password?: string;
     phone: string;
     isVerified: boolean;
-    birthday: Date;
-    location: string;
-    createdAt?: Date;
-    updatedAt?: Date;
+    birthday?: Date;
+    location?: string;
+    histories?: string;
+    pickedProducts?: string;
+    rating?: number;
 }

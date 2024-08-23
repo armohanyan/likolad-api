@@ -1,25 +1,10 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import {IUser} from "../src/types/user";
 
-interface UserAttributes {
-  id: number;
-  firstName: string;
-  lastName: string;
-  role: 'admin' | 'user';
-  email: string;
-  password: string;
-  phone: string;
-  isVerified: boolean;
-  birthday: Date;
-  location: string;
-  histories: string;
-  pickedProducts: string;
-  rating: number;
-}
-
-type UserCreationAttributes = Optional<UserAttributes, 'id'>;
+type UserCreationAttributes = Optional<IUser, 'id'>;
 
 export default (sequelize: Sequelize) => {
-  class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+  class User extends Model<IUser, UserCreationAttributes> implements IUser {
     public id!: number;
     public firstName!: string;
     public lastName!: string;
