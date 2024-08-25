@@ -1,0 +1,23 @@
+{
+  "rules": {
+    "prettier/prettier": "error",
+    "indent": ["error", 2],                  // Enforce consistent indentation (2 spaces)
+    "no-trailing-spaces": "error",           // Disallow trailing whitespace at the end of lines
+    "space-before-function-paren": ["error", "never"], // Disallow space before function parenthesis
+    "no-multi-spaces": "error",              // Disallow multiple spaces except for indentation
+    "space-in-parens": ["error", "never"],   // Disallow spaces inside parentheses
+    "space-infix-ops": "error",              // Require spaces around infix operators (e.g., `+`, `-`, `=`)
+    "key-spacing": ["error", {               // Disallow spaces before/after object keys/values
+      "beforeColon": false,
+      "afterColon": true
+    }],
+    "comma-spacing": ["error", {             // Enforce consistent spacing before and after commas
+      "before": false,
+      "after": true
+    }]
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ]
+}

@@ -1,8 +1,10 @@
 import {CryptoUtil} from "utils";
 import JwtUtil from "utils/jwt.util";
 import createHttpError from 'http-errors';
-import {User} from '../../models';
+import {User} from '../models';
 import {serializeUser} from "../utils/users";
+import {Logform} from "winston";
+import {cloneDeep} from "lodash";
 
 interface ISignUpParams {
     firstName: string
@@ -19,19 +21,18 @@ interface ISignInParams {
     password: string
 }
 
-
 export default class AuthService {
     static async signUp(body: ISignUpParams) {
         const email = body.email;
 
         const existingUser = await User.findOne({ where: { email } });
-
+        console.log(existingUser)
         if (existingUser) { 
             throw createHttpError(400, 'User already exists with this email')
         }
     
         const hashedPassword = CryptoUtil.createHash(body.password)
-    
+
         const user = await User.create({
           firstName: body.firstName,
           lastName: body.lastName,
@@ -50,24 +51,24 @@ export default class AuthService {
     static async signIn(body: ISignInParams) {
         const { email, password } = body;
 
-        const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email }});
 
         if (!user) {
-            throw createHttpError(401, 'User already exists with this email')
+            throw createHttpError(401, 'Invalid email or password')
         }
 
-        const isPasswordValid = CryptoUtil.isValidPassword(password, user.password)
+        const isPasswordValid = CryptoUtil.isValidPassword(password, user.getDataValue("password")!)
 
         if (!isPasswordValid) {
-            throw createHttpError(401, 'User already exists with this email')
+            throw createHttpError(401, 'Invalid email or password')
         }
 
         const token = JwtUtil.sign({
-            id: user.id,
+            id: user.getDataValue('id'),
             email: user.email,
             role: user.role
         })
 
-        return { token };
+        return { user, token };
     }
 }

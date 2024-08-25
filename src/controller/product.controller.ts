@@ -6,7 +6,6 @@ export default class ProductController {
     static async getProducts(req:Request, res: Response, next: NextFunction){
         try {
             const response = await ProductService.getProducts();
-
             SuccessHandlerUtil.handleList(res, next, response)
         } catch (error) {
             next(error)
@@ -14,7 +13,7 @@ export default class ProductController {
     }
     static async createProduct(req:Request, res: Response, next: NextFunction){
         try {
-            const response = await ProductService.createProduct();
+            const response = await ProductService.createProduct(req.body);
 
             SuccessHandlerUtil.handleAdd(res, next, response)
         } catch (error) {

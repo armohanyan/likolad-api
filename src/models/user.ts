@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import {IUser} from "../src/types/user";
+import {IUser} from "../types/user";
 
-type UserCreationAttributes = Optional<IUser, 'id'>;
+type UserCreationAttributes = Optional<IUser, 'id' | 'createdAt' | 'updatedAt'>;
 
 export default (sequelize: Sequelize) => {
   class User extends Model<IUser, UserCreationAttributes> implements IUser {
@@ -18,6 +18,8 @@ export default (sequelize: Sequelize) => {
     public histories!: string;
     public pickedProducts!: string;
     public rating!: number;
+    public createdAt?: Date;
+    public updatedAt?: Date;
   }
 
   User.init({
@@ -74,6 +76,16 @@ export default (sequelize: Sequelize) => {
     rating: {
       type: DataTypes.FLOAT,
       defaultValue: 0,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: true,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: true,
     },
   }, {
     sequelize,

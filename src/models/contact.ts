@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import {IContact} from "../src/types/contact";
+import {IContact} from "../types/contact";
 
 type ContactCreationAttributes = Optional<IContact, 'id'>;
 

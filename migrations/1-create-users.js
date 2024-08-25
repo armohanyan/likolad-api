@@ -57,6 +57,16 @@ module.exports = {
         type: DataTypes.FLOAT,
         defaultValue: 0,
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
     });
   },
 

@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import {ICategory} from "../src/types/category";
+import {ICategory} from "../types/category";
 
 type CategoryCreationAttributes = Optional<ICategory, 'id'>;
 

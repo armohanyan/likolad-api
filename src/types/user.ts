@@ -12,4 +12,6 @@ export interface IUser {
     histories?: string;
     pickedProducts?: string;
     rating?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

@@ -12,10 +12,14 @@ const JWT_SECRET = config.AUTH.JWT_ACCESS_SECRET
 
 export default class JwtUtil {
   static sign(paylod: IJWTPayload ) {
-    return jwt.sign(
-        paylod, 
-        JWT_SECRET,
-        { expiresIn: '1d' }
-    )
-}
+        return jwt.sign(
+            paylod,
+            JWT_SECRET,
+            { expiresIn: '1d' }
+        )
+    }
+
+    static verify(token: string) {
+        return jwt.verify(token, JWT_SECRET) as { id: number };
+    }
 }

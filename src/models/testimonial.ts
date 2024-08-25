@@ -1,5 +1,5 @@
   import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-  import {ITestimonial} from "../src/types/testimonial";
+  import {ITestimonial} from "../types/testimonial";
 
 
 type TestimonialCreationAttributes = Optional<ITestimonial, 'id'>;

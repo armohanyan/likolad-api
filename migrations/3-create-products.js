@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       images: {
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
         allowNull: true,
       },
       video: {
@@ -36,6 +36,16 @@ module.exports = {
         type: DataTypes.TEXT, // You may want to use a relationship here
         allowNull: true,
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      }
     });
   },
 

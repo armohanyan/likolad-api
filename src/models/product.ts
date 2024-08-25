@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import {IProduct} from "../src/types/product";
+import {IProduct} from "../types/product";
+import {ICategory} from "../types/category";
 
 type ProductCreationAttributes = Optional<IProduct, 'id'>;
 
@@ -12,6 +13,17 @@ export default (sequelize: Sequelize) => {
     public video!: string;
     public price!: number;
     public favorite!: boolean;
+
+    // Association Methods
+    public getCategories!: () => Promise<ICategory[]>;
+    public setCategories!: (categories: ICategory[] | number[]) => Promise<void>;
+    public addCategory!: (category: ICategory | number) => Promise<void>;
+    public addCategories!: (categories: ICategory[] | number[]) => Promise<void>;
+    public removeCategory!: (category: ICategory | number) => Promise<void>;
+
+    // public static associations: {
+    //   categories: Association<Product, ICategory>;
+    // };
   }
 
   Product.init({
@@ -29,7 +41,7 @@ export default (sequelize: Sequelize) => {
       allowNull: false,
     },
     images: {
-      type: DataTypes.TEXT,
+      type: DataTypes.JSON,
       allowNull: true,
     },
     video: {

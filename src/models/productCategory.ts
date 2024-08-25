@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import {IProductCategory} from "../src/types/product-category";
+import {IProductCategory} from "../types/product-category";
 
 type ProductCategoryCreationAttributes = Optional<IProductCategory, 'createdAt' | 'updatedAt'>;
 
@@ -40,7 +40,7 @@ export default (sequelize: Sequelize) => {
         },
     }, {
         sequelize,
-        tableName: 'ProductCategories',
+        tableName: 'product_category',
         timestamps: true,
     });
 
