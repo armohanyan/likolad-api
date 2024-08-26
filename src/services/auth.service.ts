@@ -26,8 +26,8 @@ export default class AuthService {
         const email = body.email;
 
         const existingUser = await User.findOne({ where: { email } });
-        console.log(existingUser)
-        if (existingUser) { 
+
+        if (existingUser) {
             throw createHttpError(400, 'User already exists with this email')
         }
     

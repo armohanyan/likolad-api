@@ -10,7 +10,7 @@ export default (sequelize: Sequelize) => {
     public title!: string;
     public description!: string;
     public images!: string;
-    public video!: string;
+    public videos!: string;
     public price!: number;
     public favorite!: boolean;
 
@@ -44,8 +44,8 @@ export default (sequelize: Sequelize) => {
       type: DataTypes.JSON,
       allowNull: true,
     },
-    video: {
-      type: DataTypes.STRING,
+    videos: {
+      type: DataTypes.JSON,
       allowNull: true,
     },
     price: {

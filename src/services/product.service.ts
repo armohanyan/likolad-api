@@ -5,7 +5,6 @@ export default class ProductService {
 
     // Retrieve all products with their associated categories
     static async getProducts() {
-        console.log(123)
         return await Product.findAll({
             include: [
                 {
@@ -18,22 +17,24 @@ export default class ProductService {
         });
     }
 
-    static async createProduct(productData: IProduct & { categoryIds: number[] } ) {
-        const { title, description, images, video, price, favorite, categoryIds } = productData;
-        console.log(productData)
-            const product = await Product.create({
-                title,
-                description,
-                images,
-                video,
-                price,
-                favorite,
-            });
+    static async createProduct(params: { productJsonData: string, imagePaths: string[],  videoPaths: string[]}) {
+        const {productJsonData, imagePaths, videoPaths} = params;
+        const productData = JSON.parse(productJsonData) as IProduct & { categoryIds: number[] };
+        let { title, description, price, favorite, categoryIds } = productData;
 
-            if (categoryIds && categoryIds.length > 0) {
-                await product.setCategories(categoryIds);
-            }
+        const product = await Product.create({
+            title,
+            description,
+            images: JSON.stringify(imagePaths),
+            videos: JSON.stringify(videoPaths),
+            price,
+            favorite,
+        });
 
-            return product
+        if (categoryIds && categoryIds.length > 0) {
+            await product.setCategories(categoryIds);
+        }
+
+        return product
     }
 }

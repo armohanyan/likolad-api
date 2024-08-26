@@ -20,8 +20,8 @@ module.exports = {
         type: DataTypes.JSON,
         allowNull: true,
       },
-      video: {
-        type: DataTypes.STRING,
+      videos: {
+        type: DataTypes.JSON,
         allowNull: true,
       },
       price: {

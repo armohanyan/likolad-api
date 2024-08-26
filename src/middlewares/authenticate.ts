@@ -13,7 +13,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
         // Verify the token
         const decoded = JwtUtil.verify(token)
-        console.log(decoded)
+
         // Find the user by ID
         const user = await User.findByPk(decoded.id);
 
