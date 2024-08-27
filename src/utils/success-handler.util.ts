@@ -43,4 +43,8 @@ export default class SuccessHandlerUtil {
     }
     return this._sendResponse(response, HttpStatusCodesUtil.OK, data);
   }
+
+  static handleDelete(response: Response, next: NextFunction, data?: unknown): void {
+    this._sendResponse(response, HttpStatusCodesUtil.OK, data);
+  }
 }

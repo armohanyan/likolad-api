@@ -16,14 +16,6 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      images: {
-        type: DataTypes.JSON,
-        allowNull: true,
-      },
-      videos: {
-        type: DataTypes.JSON,
-        allowNull: true,
-      },
       price: {
         type: DataTypes.FLOAT,
         allowNull: false,

@@ -9,8 +9,6 @@ export default (sequelize: Sequelize) => {
     public id!: number;
     public title!: string;
     public description!: string;
-    public images!: string;
-    public videos!: string;
     public price!: number;
     public favorite!: boolean;
 
@@ -39,14 +37,6 @@ export default (sequelize: Sequelize) => {
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
-    },
-    images: {
-      type: DataTypes.JSON,
-      allowNull: true,
-    },
-    videos: {
-      type: DataTypes.JSON,
-      allowNull: true,
     },
     price: {
       type: DataTypes.FLOAT,

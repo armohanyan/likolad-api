@@ -20,4 +20,25 @@ export default class ProductController {
             next(error)
         }
     }
+
+    static async updateProduct(req:Request, res: Response, next: NextFunction){
+        try {
+            const response = await ProductService.updateProduct(parseInt(req.params.id), req.body);
+
+            SuccessHandlerUtil.handleUpdate(res, next, response)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async deleteProduct(req:Request, res: Response, next: NextFunction){
+        try {
+            const response = await ProductService.deleteProduct(parseInt(req.params.id));
+
+            SuccessHandlerUtil.handleDelete(res, next, response)
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }

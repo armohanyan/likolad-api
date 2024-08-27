@@ -7,8 +7,12 @@ export default (sequelize: Sequelize) => {
   class Category extends Model<ICategory, CategoryCreationAttributes> implements ICategory {
     public id!: number;
     public title!: string;
-    public description!: string;
+    public description?: string;
     public parentId?: number;
+
+    // Associations
+    public readonly parent?: Category;
+    public readonly subcategories?: Category[];
   }
 
   Category.init({
@@ -37,6 +41,10 @@ export default (sequelize: Sequelize) => {
     sequelize,
     tableName: 'categories',
   });
+
+  Category.belongsTo(Category, { as: 'parent', foreignKey: 'parentId' });
+  Category.hasMany(Category, { as: 'subcategories', foreignKey: 'parentId' });
+
 
   return Category;
 };

@@ -70,8 +70,10 @@ const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
         } else if (err) {
             return res.status(400).json({ error: err.message });
         }
+        console.log(req.files, 'req.files')
         const imagePaths: string[] = [];
         const videoPaths: string[] = [];
+
         if (req.files) {
             (req.files as Express.Multer.File[]).forEach((file) => {
                 const relativePath = path.relative(process.cwd(), file.path);
