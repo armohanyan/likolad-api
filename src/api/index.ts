@@ -3,6 +3,8 @@ import user from './user.api';
 import auth from './auth.api';
 import product from './product.api';
 import category from './category.api';
+import testimonial from './testimonial.api';
+import contact from './contact.api';
 
 const app = express();
 
@@ -14,5 +16,7 @@ app.use('/auth', auth);
 app.use('/user', user);
 app.use('/product', product);
 app.use('/category', category);
+app.use('/testimonial', testimonial);
+app.use('/contact', contact);
 
 export default app;

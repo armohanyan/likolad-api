@@ -1,5 +1,6 @@
 import {Category} from "../models";
 import createHttpError from "http-errors";
+import {ICategory} from "../types/category";
 
 export default class CategoryService {
     static async getCategories() {
@@ -8,11 +9,11 @@ export default class CategoryService {
         });
     }
 
-    static async createCategory(data: { title: string; description?: string; parentId?: number }) {
+    static async createCategory(data: ICategory) {
         return await Category.create(data);
     }
 
-    static async updateCategory(id: number, data: { title: string; description?: string; parentId?: number }) {
+    static async updateCategory(id: number, data: ICategory) {
         const category = await Category.findByPk(id);
 
         if (!category) {

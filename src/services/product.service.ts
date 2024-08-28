@@ -2,7 +2,6 @@ import {IProduct} from "../types/product";
 import {Category, Media, Product} from "../models";
 import createHttpError from "http-errors";
 import fs from 'fs';
-import path from 'path';
 
 export default class ProductService {
     static async getProducts() {
@@ -23,7 +22,6 @@ export default class ProductService {
     }
 
     static async createProduct(params: { productJsonData: string, imagePaths: string[],  videoPaths: string[]}) {
-        console.log(params, 'params')
         const { productJsonData, imagePaths, videoPaths } = params;
         const productData = JSON.parse(productJsonData) as IProduct & { categoryIds: number[] };
         const { title, description, price, favorite, categoryIds } = productData;
@@ -38,7 +36,7 @@ export default class ProductService {
         if (categoryIds && categoryIds.length > 0) {
             await product.setCategories(categoryIds);
         }
-        console.log(imagePaths, 'imagePaths')
+
         // @ts-ignore
         await Media.bulkCreate([
             ...imagePaths.map(path => ({ type: 'image', path, productId: product.id })),
@@ -58,8 +56,6 @@ export default class ProductService {
         if (!product) {
             throw createHttpError(404, 'Product not found');
         }
-
-        console.log(product)
 
         await product.update({
             title,
@@ -92,12 +88,10 @@ export default class ProductService {
             throw createHttpError(404, 'Product not found');
         }
 
-        await product.destroy();
-
         const mediaFiles = await Media.findAll({ where: { productId: id } });
 
         for (const media of mediaFiles) {
-            const filePath = path.resolve('uploads', media.type === 'image' ? 'images' : 'videos', media.path);
+            const filePath = process.cwd() + '/' +  media.getDataValue('path');
 
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);

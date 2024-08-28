@@ -3,8 +3,6 @@ import JwtUtil from "utils/jwt.util";
 import createHttpError from 'http-errors';
 import {User} from '../models';
 import {serializeUser} from "../utils/users";
-import {Logform} from "winston";
-import {cloneDeep} from "lodash";
 
 interface ISignUpParams {
     firstName: string
