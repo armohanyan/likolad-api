@@ -4,6 +4,7 @@ import auth from './auth.api';
 import product from './product.api';
 import category from './category.api';
 import testimonial from './testimonial.api';
+import order from './order.api';
 import contact from './contact.api';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/user', user);
 app.use('/product', product);
 app.use('/category', category);
 app.use('/testimonial', testimonial);
+app.use('/order', order);
 app.use('/contact', contact);
 
 export default app;

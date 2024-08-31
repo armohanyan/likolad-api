@@ -56,6 +56,5 @@ export default (sequelize: Sequelize) => {
   Category.belongsTo(Category, { as: 'parent', foreignKey: 'parentId' });
   Category.hasMany(Category, { as: 'subcategories', foreignKey: 'parentId' });
 
-
   return Category;
 };

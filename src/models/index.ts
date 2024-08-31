@@ -7,6 +7,7 @@ import ProductCategoryFactory from './productCategory';
 import TestimonialFactory from './testimonial';
 import ContactFactory from './contact';
 import RatingFactory from './rating';
+import OrderFactory from './order';
 
 const sequelize = new Sequelize({
    "username": "root",
@@ -25,7 +26,7 @@ const ProductCategory = ProductCategoryFactory(sequelize);
 const Testimonial = TestimonialFactory(sequelize);
 const Contact = ContactFactory(sequelize);
 const Rating = RatingFactory(sequelize); // Initialize Rating model
-
+const Order = OrderFactory(sequelize); // Initialize Rating model
 
 const defineAssociations = () => {
   Product.belongsToMany(Category, { through: ProductCategory,  as: 'category'});
@@ -44,4 +45,4 @@ const defineAssociations = () => {
 defineAssociations();
 
 
-export { sequelize, User, Product, Category, ProductCategory, Testimonial, Contact, Media, Rating };
+export { sequelize, User, Product, Category, ProductCategory, Testimonial, Contact, Media, Rating, Order };
