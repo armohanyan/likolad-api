@@ -2,45 +2,77 @@ import {IProduct} from "../types/product";
 import {Category, Media, Product, ProductCategory, Rating, sequelize} from "../models";
 import createHttpError from "http-errors";
 import fs from 'fs';
-import {fn, col, literal, Sequelize} from 'sequelize';
+import {fn, col, literal, Sequelize, Op} from 'sequelize';
+
+interface GetProductsOptions {
+    searchTerm?: string;
+    categoryId?: number;
+    sortBy?: 'price' | 'rating';
+    sortOrder?: 'ASC' | 'DESC';
+}
 
 export default class ProductService {
-    static async getProducts() {
-        return await Product.findAll(
-            {
-                include: [
-                    {
-                        model: Category,
-                        through: {
-                            attributes: [],
-                        },
-                        as: "category",
+    static async getProducts(options: GetProductsOptions) {
+        const { searchTerm, categoryId, sortBy = 'rating', sortOrder = 'DESC' } = options;
+        const whereClause: any = {};
+
+        if (searchTerm) {
+            whereClause[Op.or] = [
+                { title_am: { [Op.like]: `%${searchTerm}%` } },
+                { title_en: { [Op.like]: `%${searchTerm}%` } },
+                { description_am: { [Op.like]: `%${searchTerm}%` } },
+                { description_en: { [Op.like]: `%${searchTerm}%` } },
+                {
+                    [Op.or]: {
+                        '$category.title_am$': { [Op.like]: `%${searchTerm}%` },
+                        '$category.title_en$': { [Op.like]: `%${searchTerm}%` },
                     },
-                    {
-                        model: Media,
-                        as: 'media'
+                }
+            ];
+        }
+
+        if (categoryId) {
+            whereClause['$category.id$'] = categoryId;
+        }
+
+        return await Product.findAll({
+            include: [
+                {
+                    model: Category,
+                    through: {
+                        attributes: [],
                     },
-                    {
-                        model: Rating,
-                        as: 'ratings',
-                        attributes: []
-                    },
-                ],
-                attributes: [
-                    'id',
-                    'title_am',
-                    'title_en',
-                    'description_am',
-                    'description_en',
-                    'price',
-                    [fn('AVG', col('ratings.rating')), 'rating'],
-                ],
-                group: [
-                    'Product.id',
-                    'category.id',
-                    'media.id'
-                ],
-                order: [literal('rating DESC')]
+                    as: "category",
+                },
+                {
+                    model: Media,
+                    as: 'media'
+                },
+                {
+                    model: Rating,
+                    as: 'ratings',
+                    attributes: []
+                },
+            ],
+            attributes: [
+                'id',
+                'title_am',
+                'title_en',
+                'description_am',
+                'description_en',
+                'price',
+                [fn('AVG', col('ratings.rating')), 'rating'],
+            ],
+            where: whereClause,
+            group: [
+                'Product.id',
+                'category.id',
+                'media.id'
+            ],
+            order: [
+                [fn('AVG', col('ratings.rating')), 'DESC'], // Order by rating
+                [sortBy, sortOrder] // Order by price or other sorting criteria
+            ]
         });
     }
 

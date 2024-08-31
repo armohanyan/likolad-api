@@ -5,7 +5,7 @@ import ProductService from "../services/product.service";  // Import types
 export default class ProductController {
     static async getProducts(req:Request, res: Response, next: NextFunction){
         try {
-            const response = await ProductService.getProducts();
+            const response = await ProductService.getProducts(req.query);
             SuccessHandlerUtil.handleList(res, next, response)
         } catch (error) {
             next(error)
