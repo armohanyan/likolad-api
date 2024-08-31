@@ -10,7 +10,14 @@ export default class ContactService {
     static async createContact(data: IContact) {
         const {phone, location, gmail, instagram, facebook, linkedin} = data
 
-        return await Contact.create({phone, location, gmail, instagram, facebook, linkedin});
+        return await Contact.create({
+            phone: phone || 'N/A',
+            gmail: gmail || 'N/A',
+            instagram: instagram || 'N/A',
+            facebook: facebook || 'N/A',
+            linkedin: linkedin || 'N/A',
+            location: location || 'N/A',
+        });
     }
 
     static async updateContact(id: number, data: IContact) {
@@ -22,15 +29,14 @@ export default class ContactService {
             throw createHttpError(404, 'Contact not found');
         }
 
-        contact.phone = phone || 'N/A';
-        contact.location = location || 'N/A';
-        contact.gmail = gmail || 'N/A';
-
-        contact.instagram = instagram || 'N/A';
-        contact.facebook = facebook || 'N/A';
-        contact.linkedin = linkedin || 'N/A';
-
-        await contact.save();
+        await contact.update({
+            phone: phone || 'N/A',
+            gmail: gmail || 'N/A',
+            location: location || 'N/A',
+            instagram: instagram || 'N/A',
+            facebook: facebook || 'N/A',
+            linkedin: linkedin || 'N/A',
+        });
 
         return contact;
     }

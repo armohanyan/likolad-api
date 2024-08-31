@@ -18,10 +18,10 @@ export default class TestimonialService {
             throw createHttpError(404, 'Testimonial not found');
         }
 
-        testimonial.content = content;
-        testimonial.author = author;
-
-        await testimonial.save();
+        await testimonial.update({
+            content,
+            author
+        });
 
         return testimonial
     }
