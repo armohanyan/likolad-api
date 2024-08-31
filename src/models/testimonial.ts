@@ -6,9 +6,11 @@ type TestimonialCreationAttributes = Optional<ITestimonial, 'id'>;
 
 export default (sequelize: Sequelize) => {
   class Testimonial extends Model<ITestimonial, TestimonialCreationAttributes> implements ITestimonial {
-    public id!: number;
-    public content!: string;
-    public author!: string;
+    declare id: number;
+    declare content_am: string;
+    declare content_en: string;
+    declare author_am: string;
+    declare author_en: string;
   }
 
   Testimonial.init({
@@ -17,11 +19,19 @@ export default (sequelize: Sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    content: {
+    content_am: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    author: {
+    content_en: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    author_am: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    author_en: {
       type: DataTypes.STRING,
       allowNull: false,
     },

@@ -8,25 +8,25 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      title: {
+      title_am: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
+      title_en: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description_am: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      description_en: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
       price: {
         type: DataTypes.FLOAT,
         allowNull: false,
-      },
-      favorite: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
-      categories: {
-        type: DataTypes.TEXT, // You may want to use a relationship here
-        allowNull: true,
       },
       createdAt: {
         type: DataTypes.DATE,

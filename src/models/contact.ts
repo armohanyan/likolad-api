@@ -5,13 +5,13 @@ type ContactCreationAttributes = Optional<IContact, 'id'>;
 
 export default (sequelize: Sequelize) => {
   class Contact extends Model<IContact, ContactCreationAttributes> implements IContact {
-    public id!: number;
-    public phone!: string;
-    public location!: string;
-    public gmail!: string;
-    public instagram!: string;
-    public facebook!: string;
-    public linkedin!: string;
+    declare id: number;
+    declare phone: string;
+    declare location: string;
+    declare gmail: string;
+    declare instagram: string;
+    declare facebook: string;
+    declare linkedin: string;
   }
 
   Contact.init({
@@ -47,6 +47,7 @@ export default (sequelize: Sequelize) => {
   }, {
     sequelize,
     tableName: 'contacts',
+    timestamps: false
   });
 
   return Contact;

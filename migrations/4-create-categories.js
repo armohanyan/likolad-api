@@ -8,11 +8,19 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      title: {
+      title_am: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
+      title_en: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description_am: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      description_en: {
         type: DataTypes.TEXT,
         allowNull: true,
       },
@@ -24,17 +32,7 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'SET NULL',
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-      },
+      }
     });
   },
 

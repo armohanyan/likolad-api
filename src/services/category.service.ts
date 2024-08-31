@@ -9,8 +9,8 @@ export default class CategoryService {
         });
     }
 
-    static async createCategory(data: ICategory) {
-        return await Category.create(data);
+    static async createCategory(category: ICategory) {
+        return await Category.create(category);
     }
 
     static async updateCategory(id: number, data: ICategory) {

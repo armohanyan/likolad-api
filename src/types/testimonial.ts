@@ -1,5 +1,7 @@
 export interface ITestimonial {
     id: number;
-    content: string;
-    author: string;
+    content_am: string;
+    content_en: string;
+    author_am: string;
+    author_en: string;
 }

@@ -5,10 +5,8 @@ type ProductCategoryCreationAttributes = Optional<IProductCategory, 'createdAt' 
 
 export default (sequelize: Sequelize) => {
     class ProductCategory extends Model<IProductCategory, ProductCategoryCreationAttributes> implements IProductCategory {
-        public productId!: number;
-        public categoryId!: number;
-        public createdAt?: Date;
-        public updatedAt?: Date;
+        declare productId: number;
+        declare categoryId: number
     }
 
     ProductCategory.init({
@@ -27,21 +25,11 @@ export default (sequelize: Sequelize) => {
                 key: 'id',
             },
             primaryKey: true,
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-            allowNull: true,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-            allowNull: true,
-        },
+        }
     }, {
         sequelize,
         tableName: 'product_category',
-        timestamps: true,
+        timestamps: false,
     });
 
     return ProductCategory;

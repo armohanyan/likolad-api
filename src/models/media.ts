@@ -6,10 +6,10 @@ type MediaCreationAttributes = Optional<IMedia, 'id'>;
 
 export default (sequelize: Sequelize) => {
     class Media extends Model<IMedia, MediaCreationAttributes> implements IMedia {
-        public id!: number;
-        public type!: 'image' | 'video';
-        public path!: string;
-        public productId!: number;
+        declare id: number;
+        declare type: 'image' | 'video';
+        declare path: string;
+        declare productId: number;
     }
 
     Media.init({
@@ -37,6 +37,7 @@ export default (sequelize: Sequelize) => {
     }, {
         sequelize,
         tableName: 'media',
+        timestamps: false
     });
 
     return Media;

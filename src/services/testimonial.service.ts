@@ -7,21 +7,18 @@ export default class TestimonialService {
         return await Testimonial.findAll();
     }
 
-    static async createTestimonial({ content, author }: ITestimonial) {
-        return await Testimonial.create({content, author});
+    static async createTestimonial(testimonial: ITestimonial) {
+        return await Testimonial.create(testimonial);
     }
 
-    static async updateTestimonial(id: number, { content, author }: ITestimonial) {
+    static async updateTestimonial(id: number, data: ITestimonial) {
         const testimonial = await Testimonial.findByPk(id);
 
         if (!testimonial) {
             throw createHttpError(404, 'Testimonial not found');
         }
 
-        await testimonial.update({
-            content,
-            author
-        });
+        await testimonial.update(data);
 
         return testimonial
     }

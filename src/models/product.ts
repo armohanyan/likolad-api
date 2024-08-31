@@ -1,27 +1,16 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import {IProduct} from "../types/product";
-import {ICategory} from "../types/category";
 
 type ProductCreationAttributes = Optional<IProduct, 'id'>;
 
 export default (sequelize: Sequelize) => {
   class Product extends Model<IProduct, ProductCreationAttributes> implements IProduct {
-    public id!: number;
-    public title!: string;
-    public description!: string;
-    public price!: number;
-    public favorite!: boolean;
-
-    // Association Methods
-    public getCategories!: () => Promise<ICategory[]>;
-    public setCategories!: (categories: ICategory[] | number[]) => Promise<void>;
-    public addCategory!: (category: ICategory | number) => Promise<void>;
-    public addCategories!: (categories: ICategory[] | number[]) => Promise<void>;
-    public removeCategory!: (category: ICategory | number) => Promise<void>;
-
-    // public static associations: {
-    //   categories: Association<Product, ICategory>;
-    // };
+    declare id: number;
+    declare title_am: string;
+    declare title_en: string;
+    declare description_am: string;
+    declare description_en: string;
+    declare price: number;
   }
 
   Product.init({
@@ -30,22 +19,26 @@ export default (sequelize: Sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    title: {
+    title_am: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    title_en: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description_am: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    description_en: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
-    },
-    favorite: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
+    }
   }, {
     sequelize,
     tableName: 'products',

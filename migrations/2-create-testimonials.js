@@ -8,11 +8,19 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      content: {
+      content_am: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      author: {
+      content_en: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      author_am: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      author_en: {
         type: DataTypes.STRING,
         allowNull: false,
       },

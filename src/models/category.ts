@@ -5,10 +5,12 @@ type CategoryCreationAttributes = Optional<ICategory, 'id'>;
 
 export default (sequelize: Sequelize) => {
   class Category extends Model<ICategory, CategoryCreationAttributes> implements ICategory {
-    public id!: number;
-    public title!: string;
-    public description?: string;
-    public parentId?: number;
+    declare id: number;
+    declare title_am: string;
+    declare title_en: string;
+    declare description_am?: string;
+    declare description_en?: string;
+    declare parentId?: number;
 
     // Associations
     public readonly parent?: Category;
@@ -21,11 +23,19 @@ export default (sequelize: Sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    title: {
+    title_am: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    title_en: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description_am: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    description_en: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
@@ -40,6 +50,7 @@ export default (sequelize: Sequelize) => {
   }, {
     sequelize,
     tableName: 'categories',
+    timestamps: false
   });
 
   Category.belongsTo(Category, { as: 'parent', foreignKey: 'parentId' });
