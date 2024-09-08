@@ -76,6 +76,45 @@ export default class ProductService {
         });
     }
 
+    static async getProduct(id: number) {
+        const whereClause: any = {};
+
+        return await Product.findByPk(id, {
+            include: [
+                {
+                    model: Category,
+                    through: {
+                        attributes: [],
+                    },
+                    as: "category",
+                },
+                {
+                    model: Media,
+                    as: 'media'
+                },
+                {
+                    model: Rating,
+                    as: 'ratings',
+                    attributes: []
+                },
+            ],
+            attributes: [
+                'id',
+                'title_am',
+                'title_en',
+                'description_am',
+                'description_en',
+                'price',
+                [fn('AVG', col('ratings.rating')), 'rating'],
+            ],
+            group: [
+                'Product.id',
+                'category.id',
+                'media.id'
+            ],
+        });
+    }
+
     static async createProduct(params: { productJsonData: string, imagePaths: string[],  videoPaths: string[]}) {
         const { productJsonData, imagePaths, videoPaths } = params;
         const productData = JSON.parse(productJsonData) as IProduct & { categoryIds: number[] };

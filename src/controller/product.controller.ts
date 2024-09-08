@@ -11,6 +11,18 @@ export default class ProductController {
             next(error)
         }
     }
+
+    static async getProduct(req:Request, res: Response, next: NextFunction){
+        try {
+            const response = await ProductService.getProduct(parseInt(req.params.id));
+            SuccessHandlerUtil.handleGet(res, next, response)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    
+
     static async createProduct(req:Request, res: Response, next: NextFunction){
         try {
             const response = await ProductService.createProduct(req.body);

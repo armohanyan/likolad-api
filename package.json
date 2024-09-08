@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-typescript-guide",
+  "name": "likolad-api",
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node src/bin/www.ts",
