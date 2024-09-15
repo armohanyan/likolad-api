@@ -1,5 +1,5 @@
-import {CryptoUtil} from "utils";
-import JwtUtil from "utils/jwt.util";
+import {CryptoUtil} from "../utils";
+import JwtUtil from "../utils/jwt.util";
 import createHttpError from 'http-errors';
 import {User} from '../models';
 import {serializeUser} from "../utils/users";
