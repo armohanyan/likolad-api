@@ -8,12 +8,13 @@ import TestimonialFactory from './testimonial';
 import ContactFactory from './contact';
 import RatingFactory from './rating';
 import OrderFactory from './order';
+import config from '../config'
 
 const sequelize = new Sequelize({
-   "username": "root",
-    "password": "HyHJWmhIA0wWN8Y",
-    "database": "likolad",
-    "host": "127.0.0.1",
+    "username": config.MYSQL.USER,
+    "password": config.MYSQL.PASSWORD,
+    "database": config.MYSQL.DATABASE,
+    "host": config.MYSQL.HOST,
     "dialect": "mysql",
     logging: console.log
 });
