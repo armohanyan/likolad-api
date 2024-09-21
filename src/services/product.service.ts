@@ -2,7 +2,7 @@ import {IProduct} from "../types/product";
 import {Category, Media, Product, ProductCategory, Rating, sequelize} from "../models";
 import createHttpError from "http-errors";
 import fs from 'fs';
-import {fn, col, literal, Sequelize, Op} from 'sequelize';
+import {fn, col, Op} from 'sequelize';
 
 interface GetProductsOptions {
     searchTerm?: string;

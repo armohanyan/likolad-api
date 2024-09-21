@@ -6,6 +6,7 @@ import category from './category.api';
 import testimonial from './testimonial.api';
 import order from './order.api';
 import contact from './contact.api';
+import statics from './statics.api';
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use('/category', category);
 app.use('/testimonial', testimonial);
 app.use('/order', order);
 app.use('/contact', contact);
+app.use('/statics', statics);
 
 export default app;

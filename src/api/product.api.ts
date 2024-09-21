@@ -6,12 +6,10 @@ import {ProductController} from "../controller";
 
 const router = express.Router();
 
-// router.post('/', authenticate, authorize(['admin']), ProductController.createProduct);
-
 router.get('/', ProductController.getProducts);
 router.get('/:id', ProductController.getProduct);
-router.post('/', uploadMiddleware, ProductController.createProduct);
-router.put('/:id', uploadMiddleware, ProductController.updateProduct);
-router.delete('/:id', ProductController.deleteProduct);
+router.post('/', authenticate, authorize(['admin']), uploadMiddleware, ProductController.createProduct);
+router.put('/:id', authenticate, authorize(['admin']), uploadMiddleware, ProductController.updateProduct);
+router.delete('/:id',authenticate, authorize(['admin']), ProductController.deleteProduct);
 
 export default router;
