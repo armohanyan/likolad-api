@@ -25,15 +25,7 @@ module.exports = {
                     key: 'id',
                 },
                 onDelete: 'CASCADE', // Delete media if the product is deleted
-            },
-            createdAt: {
-                type: Sequelize.DATE,
-                allowNull: false,
-            },
-            updatedAt: {
-                type: Sequelize.DATE,
-                allowNull: false,
-            },
+            }
         });
     },
 

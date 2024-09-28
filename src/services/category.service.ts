@@ -10,7 +10,21 @@ export default class CategoryService {
     }
 
     static async createCategory(category: ICategory) {
-        return await Category.create(category);
+        const {
+            title_am,
+            title_en,
+            description_am,
+            description_en,
+            parentId
+        } = category
+
+        return await Category.create({
+            title_am,
+            title_en,
+            description_am,
+            description_en,
+            parentId
+        });
     }
 
     static async updateCategory(id: number, data: ICategory) {
