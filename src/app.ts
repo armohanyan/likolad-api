@@ -1,12 +1,13 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import config from './config';
 import ErrorHandlerMiddleware from './middlewares/error-handler.middleware';
 import Api from './api';
 import Database from './database';
+import express, { Request, Response, NextFunction } from 'express';
+
 
 interface CorsOptions {
   origin?: string;
@@ -24,6 +25,11 @@ class App {
     this.app = express();
     this.app.use(helmet());
     this.app.use('/upload', express.static('upload')); // Serve static files
+
+    this.app.get('/', (req: Request, res: Response) => {
+      res.send('Likolad server is active')
+  });
+  
   }
 
   init() {
