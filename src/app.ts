@@ -25,11 +25,6 @@ class App {
     this.app = express();
     this.app.use(helmet());
     this.app.use('/upload', express.static('upload')); // Serve static files
-
-    this.app.get('/', (req: Request, res: Response) => {
-      res.send('Likolad server is active')
-  });
-  
   }
 
   init() {
