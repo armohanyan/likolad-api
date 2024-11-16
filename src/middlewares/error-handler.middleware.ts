@@ -1,6 +1,7 @@
 import http from 'http';
 import { NextFunction, Request, Response } from 'express';
 import { HttpStatusCodesUtil } from '../utils';
+import * as Sentry from '@sentry/node'
 
 interface IError {
   name: string;
@@ -126,5 +127,7 @@ export default class ErrorHandlerMiddleware {
     if (result.status >= 500) console.log(error);
 
     response.status(result.status).json(result);
+
+    Sentry.captureException(error)
   }
 }

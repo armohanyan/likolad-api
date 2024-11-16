@@ -7,7 +7,8 @@ import ErrorHandlerMiddleware from './middlewares/error-handler.middleware';
 import Api from './api';
 import Database from './database';
 import express, { Request, Response, NextFunction } from 'express';
-
+import {nodeProfilingIntegration} from "@sentry/profiling-node";
+import * as Sentry from '@sentry/node';
 
 interface CorsOptions {
   origin?: string;
@@ -28,6 +29,7 @@ class App {
   }
 
   init() {
+    this._initializeSentry()
     this._setRequestLogger();
     this._setCors();
     this._setRequestParser();
@@ -70,6 +72,24 @@ class App {
 
   private _setErrorHandler(): void {
     this.app.use(ErrorHandlerMiddleware.init);
+  }
+
+  private _initializeSentry(): void {
+    Sentry.init({
+      dsn: "https://94a52d2f5fb2229bebdc937d7e71ed17@o4508308076036096.ingest.de.sentry.io/4508308077412432",
+      integrations: [nodeProfilingIntegration()],
+      enableTracing: true,
+      profilesSampleRate: 1.0,
+      beforeSend(event) {
+        // Modify the event here
+        if (event.user) {
+          delete event.user
+        }
+        return event
+      }
+    })
+
+    Sentry.setupExpressErrorHandler(this.app);
   }
 }
 
