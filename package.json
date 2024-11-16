@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node src/bin/www.ts",
-    "dev": "nodemon  src/bin/www.ts"
+    "dev": "nodemon  src/bin/www.ts && npm run sentry:sourcemaps",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org iguan-systems --project likolad ./src && sentry-cli sourcemaps upload --org iguan-systems --project likolad ./src"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,9 @@
     "typescript-eslint": "^8.2.0"
   },
   "dependencies": {
+    "@sentry/cli": "^2.38.2",
+    "@sentry/node": "^8.38.0",
+    "@sentry/profiling-node": "^8.38.0",
     "@types/jsonwebtoken": "^9.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
